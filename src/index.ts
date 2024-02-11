@@ -1,11 +1,11 @@
-import express from 'express'
-import morgan from 'morgan'
-import cors from 'cors'
+import { AppDataSource } from "./database/connection/db"
+import app from "./app"
 
-const app = express()
-app.use(morgan('dev'))
-app.use(cors())
+async function main() {
+    await AppDataSource.initialize()
+    console.log("Database connected 🔥")
+    app.listen(process.env.PORT || 3000)
+    console.log(`Server running on port ${process.env.PORT || 3000} 🚀`)
+}
 
-app.listen(3000, () => {
-    console.log('server started')
-})
+main()
