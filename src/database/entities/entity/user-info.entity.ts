@@ -12,6 +12,9 @@ export type GenderType = `${GenderEnum}`
 
 @Entity({ name: 'user-info' })
 export class UserInfoEntity extends BaseEntity {
+    @Column({ unique: true })
+    userName: string
+    
     @Column({ type: 'timestamp' })
     birthDate: Date
 
@@ -21,7 +24,7 @@ export class UserInfoEntity extends BaseEntity {
     @Column({ nullable: true })
     mobile: string
 
-    @Column({ enum: GenderEnum })
+    @Column({ type: 'enum', enum: GenderEnum })
     gender: GenderType
 
     @Column()

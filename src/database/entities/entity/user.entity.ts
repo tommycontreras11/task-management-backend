@@ -4,9 +4,6 @@ import { UserInfoEntity } from "./user-info.entity";
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
-    @Column({ unique: true })
-    userName: string
-
     @Column()
     firstName: string
 
