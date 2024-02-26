@@ -5,7 +5,8 @@ import {
   Generated,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  BaseEntity as Base
+  BaseEntity as Base,
+  Column
 } from "typeorm";
 
 export class BaseEntity extends Base {
@@ -13,6 +14,7 @@ export class BaseEntity extends Base {
   id: number;
 
   @Generated("uuid")
+  @Column()
   uuid: string;
 
   @CreateDateColumn()

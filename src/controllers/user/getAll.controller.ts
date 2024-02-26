@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { getAllUserService } from "../../services/user/getAll.service";
+import { statusCode } from "../../utils/statusCode"
 
-export const getAllUserController = async(_req: Request, res: Response) => {
+export const getAllUserController = async (_req: Request, res: Response) => {
     getAllUserService({
         cache: true,
         relations: {
