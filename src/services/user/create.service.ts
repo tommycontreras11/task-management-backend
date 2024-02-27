@@ -3,17 +3,15 @@ import { UserPasswordEntity } from "../../database/entities/entity/user-password
 import { UserEntity } from "../../database/entities/entity/user.entity";
 import { CreateUserDTO } from "../../dto/user.dto";
 import { statusCode } from "../../utils/statusCode";
+import { generateUserName } from "../../utils/string.util";
 import { checkIfUserExists } from "../../utils/userUtil";
 
 export async function createUserService({ email, password, info, ...payload }: CreateUserDTO) {
-    const { foundUser, errorMessage } = await checkIfUserExists(
-      email,
-      info.userName
-    );
+    const validateEmail = await checkIfUserExists(email)
     
-    if (foundUser)
+    if (validateEmail)
       return Promise.reject({
-        message: errorMessage,
+        message: "User with this email already exists",
         status: statusCode.BAD_REQUEST,
       });
     
@@ -32,10 +30,13 @@ export async function createUserService({ email, password, info, ...payload }: C
         message: "User not created",
         status: statusCode.BAD_REQUEST,
       });
+
+    const userName = generateUserName(payload.firstName, payload.lastName)
     
     const userInfo = await UserInfoEntity.create({
       user,
       ...info,
+      userName,
     })
       .save()
       .catch((e) => {

@@ -17,11 +17,6 @@ class IsValidDTO extends IsValidDTOGlobal { }
 
 export class CreateUserInfoDTO {
   @IsNotEmpty()
-  @IsString()
-  @Expose()
-  userName: string;
-
-  @IsNotEmpty()
   @Transform(({ value }) => value && new Date(value))
   @IsDate()
   @MaxDate(new Date(), { message: "Birth date cannot be in the future" })
