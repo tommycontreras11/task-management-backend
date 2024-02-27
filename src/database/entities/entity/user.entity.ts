@@ -1,6 +1,7 @@
-import { Column, Entity, OneToOne } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity } from "../base/base.entity";
 import { UserInfoEntity } from "./user-info.entity";
+import { UserPasswordEntity } from "./user-password.entity";
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
@@ -15,4 +16,7 @@ export class UserEntity extends BaseEntity {
 
     @OneToOne(() => UserInfoEntity, (userInfo) => userInfo.user)
     userInfo: UserInfoEntity
+
+    @OneToMany(() => UserPasswordEntity, (userPassword) => userPassword.user)
+    userPasswords: UserPasswordEntity[]
 }

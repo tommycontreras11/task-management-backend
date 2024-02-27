@@ -30,7 +30,7 @@ export class UserInfoEntity extends BaseEntity {
     @Column()
     userId: number
 
-    @OneToOne(() => UserEntity, (user) => user.userInfo)
+    @OneToOne(() => UserEntity, (user) => user.userInfo, { onDelete: "CASCADE" })
     @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
     user: UserEntity
 }
