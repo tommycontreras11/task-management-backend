@@ -29,8 +29,8 @@ export async function signInService({ email, password }: SignInDTO) {
 
     if(!comparePasswords) return Promise.reject({ message: 'Wrong password', status: statusCode.UNAUTHORIZED })
 
-    const token = jsonwebtoken.sign({ userId: user.id }, process.env.JWT_SECRET!, { expiresIn: '1d' })
-
+    const token = jsonwebtoken.sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '1d' })
+    
     return {
         message: 'Login successful',
         token
