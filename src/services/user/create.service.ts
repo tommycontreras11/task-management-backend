@@ -5,6 +5,7 @@ import { CreateUserDTO } from "../../dto/user.dto";
 import { statusCode } from "../../utils/statusCode";
 import { generateUserName } from "../../utils/string.util";
 import { checkIfUserExists } from "../../utils/userUtil";
+import bcrypt from 'bcrypt'
 
 export async function createUserService({ email, password, info, ...payload }: CreateUserDTO) {
     const validateEmail = await checkIfUserExists(email)
@@ -15,6 +16,8 @@ export async function createUserService({ email, password, info, ...payload }: C
         status: statusCode.BAD_REQUEST,
       });
     
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await UserEntity.create({
       email,
       ...payload,
@@ -54,7 +57,7 @@ export async function createUserService({ email, password, info, ...payload }: C
 
     const userPassword = await UserPasswordEntity.create({
       user,
-      password,
+      password: hashedPassword,
     }).save().catch((e) => {
       console.error("UserPasswordEntity.create: ", e);
       return null;
