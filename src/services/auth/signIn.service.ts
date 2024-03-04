@@ -3,9 +3,8 @@ import { UserEntity } from "../../database/entities/entity/user.entity";
 import { SignInDTO } from "../../dto/auth.dto";
 import { statusCode } from "../../utils/statusCode";
 import bcrypt from 'bcrypt'
-import jsonwebtoken from 'jsonwebtoken'
 
-export async function signInService({ email, password }: SignInDTO) {
+export async function signInService({ email, password }: SignInDTO): Promise<UserEntity> {
     const user = await UserEntity.findOne({ where: { email } }).catch(e => {
         console.error('signInService -> UserEntity.findOne: ', e)
         return null
@@ -29,10 +28,5 @@ export async function signInService({ email, password }: SignInDTO) {
 
     if(!comparePasswords) return Promise.reject({ message: 'Wrong password', status: statusCode.UNAUTHORIZED })
 
-    const token = jsonwebtoken.sign({ userId: user.id }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '1d' })
-    
-    return {
-        message: 'Login successful',
-        token
-    }
+    return Promise.resolve(user)
 }
