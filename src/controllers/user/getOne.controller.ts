@@ -8,9 +8,20 @@ export const getOneUserController = async (req: Request, res: Response) => {
     getOneUserService({
         where: {
             uuid
+        },
+        relations: {
+            userInfo: true
         }
     }).then(user => {
-        return res.json({ user })
+        const data = {
+            uuid: user.uuid,
+            fullName: user.firstName + ' ' + user.lastName,
+            email: user.email,
+            userName: user.userInfo.userName,
+            gender: user.userInfo.gender,
+            birthDate: user.userInfo.birthDate
+        }
+        return res.json(data)
     }).catch(e => {
         return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
     })
