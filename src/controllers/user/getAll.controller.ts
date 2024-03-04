@@ -16,7 +16,7 @@ export const getAllUserController = async (_req: Request, res: Response) => {
             userName: user.userInfo.userName
         }))
 
-        return res.json(data)
+        return res.status(statusCode.OK).json(data)
     }).catch(e => {
         return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
     })

@@ -1,0 +1,33 @@
+import { Request, Response } from "express";
+import { getOneTaskService } from "../../services/task/getOne.service";
+import { statusCode } from "../../utils/statusCode";
+
+export const getOneTaskController = async (req: Request, res: Response) => {
+    const uuid = req.params.uuid as string
+
+    getOneTaskService({
+        where: {
+            uuid
+        },
+        relations: {
+            user: true
+        }
+    }).then(task => {
+        const data = {
+            uuid: task.uuid,
+            title: task.title,
+            description: task.description,
+            status: task.status,
+            priority: task.priority,
+            dueDate: task.dueDate,
+            user: {
+                uuid: task.user.uuid,
+                fullName: task.user.firstName + ' ' + task.user.lastName
+            }
+        }
+
+        return res.status(statusCode.OK).json(data)
+    }).catch(e => {
+        return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
+    })
+}

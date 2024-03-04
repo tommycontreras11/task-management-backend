@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, OneToOne } from "typeorm";
 import { BaseEntity } from "../base/base.entity";
 import { UserInfoEntity } from "./user-info.entity";
 import { UserPasswordEntity } from "./user-password.entity";
+import { TaskEntity } from "./task.entity";
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity {
@@ -19,4 +20,7 @@ export class UserEntity extends BaseEntity {
 
     @OneToMany(() => UserPasswordEntity, (userPassword) => userPassword.user)
     userPasswords: UserPasswordEntity[]
+
+    @OneToMany(() => TaskEntity, (task) => task.user)
+    tasks: TaskEntity[]
 }
