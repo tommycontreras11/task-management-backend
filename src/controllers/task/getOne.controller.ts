@@ -8,9 +8,6 @@ export const getOneTaskController = async (req: Request, res: Response) => {
     getOneTaskService({
         where: {
             uuid
-        },
-        relations: {
-            user: true
         }
     }).then(task => {
         const data = {
@@ -19,11 +16,7 @@ export const getOneTaskController = async (req: Request, res: Response) => {
             description: task.description,
             status: task.status,
             priority: task.priority,
-            dueDate: task.dueDate,
-            user: {
-                uuid: task.user.uuid,
-                fullName: task.user.firstName + ' ' + task.user.lastName
-            }
+            dueDate: task.dueDate
         }
 
         return res.status(statusCode.OK).json(data)
