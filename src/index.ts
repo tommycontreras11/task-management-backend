@@ -1,9 +1,8 @@
-import { AppDataSource } from "./database/connection/ormconfig"
+import { connectDatabase } from "./database/connection"
 import app from "./app"
 
 async function main() {
-    await AppDataSource.initialize()
-    console.log(`Database connected 🔥`)
+    await connectDatabase()
     app.listen(process.env.PORT || 3000)
     console.log(`Server running on port ${process.env.PORT || 3000} 🚀`)
 }

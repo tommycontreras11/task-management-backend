@@ -11,7 +11,8 @@
     "m:generate": "npm run typeorm migration:generate ./src/database/migrations/%npm_config_name%",
     "m:run": "npm run typeorm migration:run",
     "m:revert": "npm run typeorm migration:revert",
-    "m:fresh": "npm run typeorm schema:drop && npm run typeorm migration:run"
+    "m:fresh": "npm run typeorm schema:drop && npm run typeorm migration:run",
+		"db:seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed -n ./src/config/ormconfig.ts"
   },
   "keywords": [],
   "author": "",
@@ -29,7 +30,9 @@
     "morgan": "^1.10.0",
     "mysql2": "^3.9.2",
     "reflect-metadata": "^0.2.1",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "typeorm-seeding": "1.6.1",
+    "typescript": "5.3.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

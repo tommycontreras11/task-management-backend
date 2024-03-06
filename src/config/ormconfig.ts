@@ -1,10 +1,10 @@
-import { DataSource } from "typeorm"
 import dotenv from 'dotenv'
 import path from "path"
+import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions'
 
 dotenv.config()
 
-export const AppDataSource = new DataSource({
+export default {
     type: "mysql",
     host: process.env.DB_HOST as string,
     port: parseInt(`${process.env.DB_PORT}`),
@@ -14,10 +14,13 @@ export const AppDataSource = new DataSource({
     synchronize: false,
     logging: true,
     entities: [
-        path.join(__dirname, '../entities/**/*.{ts,js}'),
+        path.join(__dirname, '../database/entities/**/*.{ts,js}'),
     ],
     subscribers: [],
     migrations: [
-        path.join(__dirname, '../migrations/*.{ts,js}'),
+        path.join(__dirname, '../database/migrations/*.{ts,js}'),
     ],
-})
+    seeds: [
+        path.join(__dirname, '../database/seedings/seeders/*.{ts,js}'),
+    ]
+} as MysqlConnectionOptions
