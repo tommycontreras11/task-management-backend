@@ -1,3 +1,4 @@
+import { Router } from "express";
 import { UuidDTO } from "../../../common/uuid.dto";
 import {
   createWorkspaceController,
@@ -6,9 +7,8 @@ import {
   getOneWorkspaceController,
   updateWorkspaceController,
 } from "../../../controllers/workspace";
-import { Router } from "express";
+import { CreateWorkspaceDTO, UpdateWorkspaceDTO } from "../../../dto/workspace.dto";
 import { validateDTO } from "../../../middlewares/dto/validate-dto.middleware";
-import { CreateWorkspaceDTO } from "../../../dto/workspace.dto";
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.post(
 );
 router.patch(
   "/:uuid",
-  validateDTO(UuidDTO, "params"),
+  [validateDTO(UuidDTO, "params"), validateDTO(UpdateWorkspaceDTO, "body")],
   updateWorkspaceController
 );
 router.delete(
