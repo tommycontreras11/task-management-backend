@@ -26,7 +26,7 @@ export class WorkspaceEntity extends BaseEntity {
 
   @ManyToOne(() => WorkspaceTypeEntity, (type) => type.workspaces)
   @JoinColumn({ name: "typeId", referencedColumnName: "id" })
-  type: WorkspaceTypeEntity;
+  workspaceType: WorkspaceTypeEntity;
 
   @OneToMany(() => BoardEntity, (board) => board.workspace)
   boards: BoardEntity[];

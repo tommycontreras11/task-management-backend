@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
-import { deleteUserService } from "../../services/user/delete.service";
+import { updateWorkspaceService } from "../../services/workspace/update.service";
 import { statusCode } from "../../utils/statusCode";
 
-export const deleteUserController = async (req: Request, res: Response) => {
-  const uuid = req.params.uuid;
+export const updateWorkspaceController = async (
+  req: Request,
+  res: Response
+) => {
+  const uuid = req.params.uuid as string;
 
-  deleteUserService(uuid)
+  updateWorkspaceService(uuid, req.body)
     .then((data) => res.status(statusCode.OK).json({ message: data }))
     .catch((e) => {
       return res

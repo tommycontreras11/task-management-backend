@@ -7,6 +7,6 @@ export class WorkspaceTypeEntity extends BaseEntity {
   @Column()
   type: string;
 
-  @OneToMany(() => WorkspaceEntity, (workspace) => workspace.type)
+  @OneToMany(() => WorkspaceEntity, (workspace) => workspace.workspaceType)
   workspaces: WorkspaceEntity[];
 }

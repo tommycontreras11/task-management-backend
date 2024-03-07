@@ -9,7 +9,7 @@ export const getOneTaskController = async (req: Request, res: Response) => {
         where: {
             uuid
         }
-    }).then(task => {
+    }).then((task) => {
         const data = {
             uuid: task.uuid,
             title: task.title,
@@ -20,7 +20,7 @@ export const getOneTaskController = async (req: Request, res: Response) => {
         }
 
         return res.status(statusCode.OK).json(data)
-    }).catch(e => {
+    }).catch((e) => {
         return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
     })
 }

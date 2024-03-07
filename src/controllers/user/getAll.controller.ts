@@ -5,8 +5,8 @@ import { statusCode } from "../../utils/statusCode"
 export const getAllUserController = async (_req: Request, res: Response) => {
     getAllUserService({
         cache: true
-    }).then(users => {
-        const data = users.map(user => ({
+    }).then((users) => {
+        const data = users.map((user) => ({
             uuid: user.uuid,
             fullName: user.firstName + ' ' + user.lastName,
             email: user.email,
@@ -14,7 +14,7 @@ export const getAllUserController = async (_req: Request, res: Response) => {
         }))
 
         return res.status(statusCode.OK).json(data)
-    }).catch(e => {
+    }).catch((e) => {
         return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
     })
 }

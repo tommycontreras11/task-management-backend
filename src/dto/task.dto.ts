@@ -1,8 +1,13 @@
 import { Expose, Transform } from "class-transformer"
-import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MinDate } from "class-validator"
+import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, MinDate } from "class-validator"
 import { PriorityTaskStatus, PriorityTaskStatusType } from "../database/entities/entity/task.entity"
 
 export class CreateTaskDTO {
+    @IsUUID('4')
+    @IsNotEmpty()
+    @Expose()
+    boardUUID: string
+
     @IsNotEmpty()
     @IsString()
     @Expose()
