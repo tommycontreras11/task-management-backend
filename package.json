@@ -1,5 +1,5 @@
 {
-  "name": "task-management",
+  "name": "task-management-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -15,7 +15,7 @@
     "db:seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed -n ./src/config/ormconfig.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "tommycontreras34@gmail.com",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
