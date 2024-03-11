@@ -1,4 +1,4 @@
-import { objectStorageConfig } from "../../config/ormconfig";
+import { objectStorageConfig } from "../../config/";
 import MinioStorage from "./minio";
 import { Readable } from "stream";
 import { UploadedObjectInfo } from "minio";

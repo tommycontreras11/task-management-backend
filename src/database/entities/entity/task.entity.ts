@@ -1,6 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from "typeorm";
 import { BaseEntity } from "../base/base.entity";
 import { BoardEntity } from "./board.entity";
+import { FileEntity } from "./file.entity";
 
 export enum TaskStatus {
   PENDING = "PENDING",
@@ -40,4 +41,18 @@ export class TaskEntity extends BaseEntity {
   @ManyToOne(() => BoardEntity, (board) => board.tasks)
   @JoinColumn({ name: "boardId", referencedColumnName: "id" })
   board: BoardEntity;
+
+  @ManyToMany(() => FileEntity, (file) => file.tasks)
+  @JoinTable({
+    name: 'task-files',
+    joinColumn: {
+      name: 'taskId',
+      referencedColumnName: 'id'
+    },
+    inverseJoinColumn: {
+      name: 'fileId',
+      referencedColumnName: 'id'
+    }
+  })
+  files: FileEntity[]
 }
