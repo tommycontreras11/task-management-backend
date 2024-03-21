@@ -3,7 +3,7 @@ import { statusCode } from '../../utils/statusCode'
 import { NextFunction, Request, Response } from 'express'
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.cookies.access_token
+    const token = req.cookies.access_token || req.headers.authorization
 
     if(!token) return res.status(statusCode.UNAUTHORIZED).json({ message: 'Unauthorized' })
     try {

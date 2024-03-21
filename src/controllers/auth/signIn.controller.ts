@@ -5,13 +5,15 @@ import jsonwebtoken from 'jsonwebtoken'
 
 export const signInController = async (req: Request, res: Response) => {
     signInService(req.body).then(data => {
-        const token = jsonwebtoken.sign({ userId: data.uuid }, process.env.ACCESS_TOKEN_SECRET!)
-    
-        return res.cookie('access_token', token, {
+        const tokenExpiration = new Date(Date.now() + 1000 * 60 * 60 * 24)
+        const originalToken = jsonwebtoken.sign({ userId: data.uuid, expiration: tokenExpiration }, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: '24h' })
+        
+        return res.cookie('access_token', originalToken, {
             httpOnly: true,
-            sameSite: 'strict',
-            expires: new Date(Date.now() + 1000 * 60 * 60 * 24)
-        }).status(statusCode.OK).json({ token })
+            sameSite: 'lax',
+            secure: false,
+            expires: tokenExpiration
+        }).status(statusCode.OK).json({ originalToken })
     }).catch(e => {
         return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
     })
