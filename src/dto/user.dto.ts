@@ -19,9 +19,9 @@ export class CreateUserInfoDTO {
   @IsNotEmpty()
   @Transform(({ value }) => value && new Date(value))
   @IsDate()
-  @MaxDate(new Date(), { message: "Birth date cannot be in the future" })
+  @MaxDate(new Date(), { message: "Birthdate cannot be in the future" })
   @Expose()
-  birthDate: Date;
+  birthdate: Date;
 
   @IsOptional()
   @IsString()

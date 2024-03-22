@@ -16,7 +16,7 @@ export class UserInfoEntity extends BaseEntity {
   userName: string;
 
   @Column({ type: "timestamp" })
-  birthDate: Date;
+  birthdate: Date;
 
   @Column({ nullable: true })
   phone: string;

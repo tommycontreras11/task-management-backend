@@ -24,7 +24,7 @@ export const getOneWorkspaceController = async (req: Request, res: Response) => 
             user: {
                 fullName: workspace.user.firstName + ' ' + workspace.user.lastName,
                 email: workspace.user.email,
-                birthDate: workspace.user.userInfo.birthDate,
+                birthdate: workspace.user.userInfo.birthdate,
                 gender: workspace.user.userInfo.gender
             }
         }

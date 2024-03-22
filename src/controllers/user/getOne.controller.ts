@@ -19,7 +19,7 @@ export const getOneUserController = async (req: Request, res: Response) => {
             email: user.email,
             userName: user.userInfo.userName,
             gender: user.userInfo.gender,
-            birthDate: user.userInfo.birthDate
+            birthdate: user.userInfo.birthdate
         }
         return res.status(statusCode.OK).json(data)
     }).catch((e) => {
