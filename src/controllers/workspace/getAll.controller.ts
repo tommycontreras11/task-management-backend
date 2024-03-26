@@ -6,14 +6,19 @@ export const getAllWorkspaceController = async (_req: Request, res: Response) =>
     getAllWorkspaceService({
         cache: true,
         relations: {
-            workspaceType: true
+            workspaceType: true,
+            user: true
         }
     }).then((workspaces) => {
         const data = workspaces.map(workspace => ({
             uuid: workspace.uuid,
             name: workspace.name,
             description: workspace.description,
-            type: workspace.workspaceType.type
+            type: workspace.workspaceType.type,
+            user: {
+                uuid: workspace.user.uuid,
+                fullName: workspace.user.firstName + ' ' + workspace.user.lastName,
+            }
         }))
 
         return res.status(statusCode.OK).json(data)
