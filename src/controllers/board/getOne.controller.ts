@@ -20,7 +20,7 @@ export const getOneBoardController = async (req: Request, res: Response) => {
         const data = {
             uuid: board.uuid,
             title: board.title,
-            workspace: {
+            workspaces: {
                 uuid: board.workspace.uuid,
                 name: board.workspace.name,
                 description: board.workspace.description,

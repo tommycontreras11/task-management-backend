@@ -10,6 +10,7 @@ export const getOneWorkspaceController = async (req: Request, res: Response) => 
             uuid
         },
         relations: {
+            boards: true,
             workspaceType: true,
             user: {
                 userInfo: true
@@ -22,11 +23,14 @@ export const getOneWorkspaceController = async (req: Request, res: Response) => 
             description: workspace.description,
             type: workspace.workspaceType.type,
             user: {
+                uuid: workspace.user.uuid,
                 fullName: workspace.user.firstName + ' ' + workspace.user.lastName,
                 email: workspace.user.email,
-                birthdate: workspace.user.userInfo.birthdate,
-                gender: workspace.user.userInfo.gender
-            }
+            },
+            boards: workspace.boards.map((board) => ({
+                uuid: board.uuid,
+                title: board.title
+            }))
         }
 
         return res.status(statusCode.OK).json(data)

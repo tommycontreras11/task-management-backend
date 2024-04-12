@@ -2,8 +2,27 @@ import { Request, Response } from "express";
 import { getAllBoardService } from "../../services/board/getAll.service";
 import { statusCode } from "../../utils/statusCode";
 
-export const getAllBoardController = async (_req: Request, res: Response) => {
-  getAllBoardService({})
+export const getAllBoardController = async (req: Request, res: Response) => {
+  const boardUUID = req.params.uuid as string
+  
+  getAllBoardService({
+    where: {
+      ...(boardUUID && {
+        workspace: {
+          uuid: boardUUID
+        }
+      })
+    },
+    relations: {
+      ...(boardUUID && {
+        workspace: {
+          workspaceType: true,
+          user: true,
+        },
+        users: true
+      })
+    }
+  })
     .then((boards) => {
       const data = boards.map((board) => ({
         uuid: board.uuid,
