@@ -1,4 +1,4 @@
-import { BoardEntity } from "../../database/entities/entity/board.entity";
+import { ListEntity } from "../../database/entities/entity/list.entity";
 import {
   PriorityTaskStatus,
   TaskEntity,
@@ -6,24 +6,24 @@ import {
 import { CreateTaskDTO } from "../../dto/task.dto";
 import { statusCode } from "../../utils/statusCode";
 
-export async function createTaskService({ boardUUID, priority, ...payload }: CreateTaskDTO) {
-  const board = await BoardEntity.findOne({
+export async function createTaskService({ listUUID, priority, ...payload }: CreateTaskDTO) {
+  const list = await ListEntity.findOne({
     where: {
-      uuid: boardUUID,
+      uuid: listUUID,
     },
   }).catch((e) => {
-    console.error("createTaskService -> BoardEntity.findOne: ", e);
+    console.error("createTaskService -> ListEntity.findOne: ", e);
     return null;
   });
 
-  if (!board)
+  if (!list)
     return Promise.reject({
-      message: "Board not found",
+      message: "List not found",
       status: statusCode.NOT_FOUND,
     });
 
   const task = await TaskEntity.create({
-    board,
+    list,
     priority: priority ? priority : PriorityTaskStatus.LOW,
     ...payload,
   })

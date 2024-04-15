@@ -1,13 +1,7 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne } from "typeorm";
 import { BaseEntity } from "../base/base.entity";
-import { BoardEntity } from "./board.entity";
 import { FileEntity } from "./file.entity";
-
-export enum TaskStatus {
-  PENDING = "PENDING",
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
-}
+import { ListEntity } from "./list.entity";
 
 export enum PriorityTaskStatus {
   LOW = "LOW",
@@ -15,7 +9,6 @@ export enum PriorityTaskStatus {
   HIGH = "HIGH",
 }
 
-export type TaskStatusType = `${TaskStatus}`;
 export type PriorityTaskStatusType = `${PriorityTaskStatus}`;
 
 @Entity({ name: "tasks" })
@@ -25,10 +18,7 @@ export class TaskEntity extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   description: string;
-
-  @Column({ type: "enum", enum: TaskStatus })
-  status: TaskStatusType;
-
+  
   @Column({ type: "enum", enum: PriorityTaskStatus })
   priority: PriorityTaskStatusType;
 
@@ -36,11 +26,11 @@ export class TaskEntity extends BaseEntity {
   dueDate: Date;
 
   @Column()
-  boardId: number;
+  listId: number;
 
-  @ManyToOne(() => BoardEntity, (board) => board.tasks)
-  @JoinColumn({ name: "boardId", referencedColumnName: "id" })
-  board: BoardEntity;
+  @ManyToOne(() => ListEntity, (list) => list.tasks)
+  @JoinColumn({ name: "listId", referencedColumnName: "id" })
+  list: ListEntity;
 
   @ManyToMany(() => FileEntity, (file) => file.tasks)
   @JoinTable({

@@ -7,10 +7,10 @@ import {
   ManyToOne,
   OneToMany,
 } from "typeorm";
-import { WorkspaceEntity } from "./workspace.entity";
-import { TaskEntity } from "./task.entity";
-import { UserEntity } from "./user.entity";
 import { BaseEntity } from "../base/base.entity";
+import { ListEntity } from "./list.entity";
+import { UserEntity } from "./user.entity";
+import { WorkspaceEntity } from "./workspace.entity";
 
 @Entity({ name: "boards" })
 export class BoardEntity extends BaseEntity {
@@ -24,8 +24,8 @@ export class BoardEntity extends BaseEntity {
   @JoinColumn({ name: "workspaceId", referencedColumnName: "id" })
   workspace: WorkspaceEntity;
 
-  @OneToMany(() => TaskEntity, (task) => task.board)
-  tasks: TaskEntity[];
+  @OneToMany(() => ListEntity, (list) => list.board)
+  lists: ListEntity[];
 
   @ManyToMany(() => UserEntity, (user) => user.boards)
   @JoinTable({

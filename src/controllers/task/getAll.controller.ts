@@ -13,7 +13,6 @@ export const getAllTaskController = async (_req: Request, res: Response) => {
             uuid: task.uuid,
             title: task.title,
             description: task.description,
-            status: task.status,
             priority: task.priority,
             dueDate: task.dueDate,
         }))

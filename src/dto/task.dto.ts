@@ -6,7 +6,7 @@ export class CreateTaskDTO {
     @IsUUID('4')
     @IsNotEmpty()
     @Expose()
-    boardUUID: string
+    listUUID: string
 
     @IsNotEmpty()
     @IsString()

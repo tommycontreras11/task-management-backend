@@ -4,6 +4,7 @@ import { statusCode } from "../../utils/statusCode";
 import { In } from "typeorm";
 import { UserEntity } from "../../database/entities/entity/user.entity";
 import { BoardEntity } from "../../database/entities/entity/board.entity";
+import { error } from "console";
 
 export async function createBoardService({ workspaceUUID, userUUIDs, title }: CreateBoardDTO) {
   const foundBoardByTitle = await BoardEntity.findOne({
@@ -15,7 +16,7 @@ export async function createBoardService({ workspaceUUID, userUUIDs, title }: Cr
     return null;
   })
 
-  if(foundBoardByTitle) return Promise.reject({ message: 'Board with this title already exists', status: statusCode.CONFLICT })
+  if(foundBoardByTitle) return Promise.reject({ error: 'Board with this title already exists', status: statusCode.CONFLICT })
   
   const foundWorkspace = await WorkspaceEntity.findOne({
     where: {
