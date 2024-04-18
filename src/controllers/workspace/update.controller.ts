@@ -13,6 +13,6 @@ export const updateWorkspaceController = async (
     .catch((e) => {
       return res
         .status(e.status ?? statusCode.INTERNAL_SERVER_ERROR)
-        .json({ message: e.message });
+        .json({ error: { message: e.message } });
     });
 };

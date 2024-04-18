@@ -10,6 +10,6 @@ export const updateBoardController = async (req: Request, res: Response) => {
     .catch((e) =>
       res
         .status(e.status ?? statusCode.INTERNAL_SERVER_ERROR)
-        .json({ message: e.message })
+        .json({ error: { message: e.message } })
     );
 };

@@ -19,6 +19,6 @@ export const getAllTaskController = async (_req: Request, res: Response) => {
 
         return res.status(statusCode.OK).json(data)
     }).catch((e) => {
-        return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
+        return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ error: { message: e.message } })
     })
 }
