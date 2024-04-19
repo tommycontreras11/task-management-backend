@@ -3,6 +3,7 @@ import {
   createBoardController,
   deleteBoardController,
   getAllBoardController,
+  getListByBoardController,
   getOneBoardController,
   updateBoardController,
 } from "../../../controllers/board";
@@ -14,6 +15,7 @@ const router = Router();
 
 router.get("/", getAllBoardController);
 router.get("/:uuid", validateDTO(UuidDTO, "params"), getOneBoardController);
+router.get("/:uuid/lists", validateDTO(UuidDTO, "params"), getListByBoardController);
 router.post("/", validateDTO(CreateBoardDTO, "body"), createBoardController);
 router.patch(
   "/:uuid",
