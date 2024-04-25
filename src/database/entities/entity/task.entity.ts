@@ -22,7 +22,7 @@ export class TaskEntity extends BaseEntity {
   @Column({ type: "enum", enum: PriorityTaskStatus })
   priority: PriorityTaskStatusType;
 
-  @Column({ type: "datetime" })
+  @Column({ type: "datetime", nullable: true })
   dueDate: Date;
 
   @Column()

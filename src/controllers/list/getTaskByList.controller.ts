@@ -1,23 +1,24 @@
 import { Request, Response } from "express";
-import { getOneBoardService } from "../../services/board/getOne.service";
+import { getOneListService } from "../../services/list/getOne.service";
 import { statusCode } from "../../utils/statusCode";
 
-export const getListByBoardController = async (req: Request, res: Response) => {
+export const getTaskByListController = async (req: Request, res: Response) => {
   const uuid = req.params.uuid as string;
 
-  getOneBoardService({
+  getOneListService({
     where: { uuid },
     relations: {
-      lists: true
+      tasks: true,
     },
   })
-    .then((board) => {
+    .then((list) => {
       const data = {
-        uuid: board.uuid,
-        title: board.title,
-        lists: board.lists.map((list) => ({
-          uuid: list.uuid,
-          title: list.title
+        uuid: list.uuid,
+        title: list.title,
+        tasks: list.tasks.map((task) => ({
+          uuid: task.uuid,
+          title: task.title,
+          description: task.description,
         })),
       };
 

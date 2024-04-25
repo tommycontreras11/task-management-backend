@@ -23,7 +23,7 @@ export class CreateTaskDTO {
     @Expose()
     priority: PriorityTaskStatusType
 
-    @IsNotEmpty()
+    @IsOptional()
     @Transform(({ value }) => value && new Date(value))
     @IsDate()
     @MinDate(() => new Date(), { message: 'Due date cannot be in the past' })
