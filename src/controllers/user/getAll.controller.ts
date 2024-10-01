@@ -4,7 +4,10 @@ import { statusCode } from "../../utils/statusCode"
 
 export const getAllUserController = async (_req: Request, res: Response) => {
     getAllUserService({
-        cache: true
+        cache: true,
+        relations: {
+            userInfo: true
+        }
     }).then((users) => {
         const data = users.map((user) => ({
             uuid: user.uuid,
