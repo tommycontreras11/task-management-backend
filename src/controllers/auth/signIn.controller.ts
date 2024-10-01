@@ -15,6 +15,6 @@ export const signInController = async (req: Request, res: Response) => {
             expires: tokenExpiration
         }).status(statusCode.OK).json({ originalToken })
     }).catch(e => {
-        return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({ message: e.message })
+        return res.status(e.status ?? statusCode.INTERNAL_SERVER_ERROR).json({error: { message: e.message } })
     })
 }
